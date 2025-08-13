@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="pt-br">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Desprotetor de Link</title>
+    <meta name="description" content="Ferramenta simples para extrair o link real de URLs protegidas/redirecionadas e remover rastreadores." />
+    <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="assets/css/styles.css" />
+  </head>
+  <body>
+    <header class="container">
+      <h1>🔓 Desprotetor de Link</h1>
+      <p class="subtitle">Cole um link "protegido" ou com redirecionamento e receba o link real, limpo e clicável.</p>
+    </header>
+
+    <main class="container">
+      <section class="card">
+        <form id="form">
+          <label for="inputUrl" class="label">Link a desproteger</label>
+          <div class="input-row">
+            <input id="inputUrl" name="inputUrl" type="url" inputmode="url" placeholder="https://exemplo.com/redireciona?url=https%3A%2F%2Fsite.com%2Fpagina" autocomplete="on" required />
+            <button id="btnProcess" type="submit" title="Desproteger">Desproteger</button>
+          </div>
+          <p class="hint">Dica: Ctrl/⌘+V cola e processa automaticamente.</p>
+        </form>
+      </section>
+
+      <section class="card output-card" aria-live="polite" aria-atomic="true">
+        <h2>Resultado</h2>
+        <div id="result" class="result">
+          <p class="muted">O link limpo aparecerá aqui.</p>
+        </div>
+        <div class="actions">
+          <button id="btnCopy" type="button" disabled>Copiar</button>
+          <a id="btnOpen" class="button-link disabled" href="#" rel="noopener noreferrer" target="_blank" aria-disabled="true">Abrir link</a>
+        </div>
+        <details class="details">
+          <summary>Ver como limpei o link</summary>
+          <pre id="log" class="log"></pre>
+        </details>
+      </section>
+    </main>
+
+    <footer class="container footer">
+      <nav class="social">
+        <a id="yt" class="icon" href="#" target="_blank" rel="noopener" title="YouTube (editar em assets/js/config.js)" aria-label="YouTube">
+          <!-- YouTube SVG -->
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.6 12 3.6 12 3.6s-7.5 0-9.4.5A3 3 0 0 0 .5 6.2 31 31 0 0 0 0 12a31 31 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c1.9.5 9.4.5 9.4.5s7.5 0 9.4-.5a3 3 0 0 0 2.1-2.1A31 31 0 0 0 24 12a31 31 0 0 0-.5-5.8zM9.6 15.5V8.5L15.8 12l-6.2 3.5z"></path></svg>
+        </a>
+        <a id="ig" class="icon" href="#" target="_blank" rel="noopener" title="Instagram (editar em assets/js/config.js)" aria-label="Instagram">
+          <!-- Instagram SVG -->
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.2c3.2 0 3.6 0 4.9.1 1.2.1 1.9.2 2.6.5.7.3 1.3.7 1.9 1.3.6.6 1 .1 1.3 1.9.3.7.4 1.4.5 2.6.1 1.3.1 1.7.1 4.9s0 3.6-.1 4.9c-.1 1.2-.2 1.9-.5 2.6a4.7 4.7 0 0 1-1.3 1.9 4.7 4.7 0 0 1-1.9 1.3c-.7.3-1.4.4-2.6.5-1.3.1-1.7.1-4.9.1s-3.6 0-4.9-.1c-1.2-.1-1.9-.2-2.6-.5a4.7 4.7 0 0 1-1.9-1.3 4.7 4.7 0 0 1-1.3-1.9c-.3-.7-.4-1.4-.5-2.6C2.2 15.6 2.2 15.2 2.2 12s0-3.6.1-4.9c.1-1.2.2-1.9.5-2.6.3-.7.7-1.3 1.3-1.9a4.7 4.7 0 0 1 1.9-1.3c.7-.3 1.4-.4 2.6-.5C8.4 2.2 8.8 2.2 12 2.2m0 1.8c-3.1 0-3.5 0-4.8.1-1 0-1.6.2-2 .3-.5.2-.8.3-1.2.7-.4.4-.5.7-.7 1.2-.1.4-.3 1-.3 2 0 1.3-.1 1.7-.1 4.8s0 3.5.1 4.8c0 1 .2 1.6.3 2 .1.5.3.8.7 1.2.4.4.7.5 1.2.7.4.1 1 .3 2 .3 1.3.1 1.7.1 4.8.1s3.5 0 4.8-.1c1 0 1.6-.2 2-.3.5-.2.8-.3 1.2-.7.4-.4.5-.7.7-1.2.1-.4.3-1 .3-2 0-1.3.1-1.7.1-4.8s0-3.5-.1-4.8c0-1-.2-1.6-.3-2-.1-.5-.3-.8-.7-1.2-.4-.4-.7-.5-1.2-.7-.4-.1-1-.3-2-.3-1.3-.1-1.7-.1-4.8-.1zm0 2.7a5.3 5.3 0 1 1 0 10.6 5.3 5.3 0 0 1 0-10.6m0 1.8a3.5 3.5 0 1 0 0 7 3.5 3.5 0 0 0 0-7m5.6-2.2a1.2 1.2 0 1 1 0 2.4 1.2 1.2 0 0 1 0-2.4"></path></svg>
+        </a>
+        <a id="gh" class="icon" href="#" target="_blank" rel="noopener" title="GitHub (editar em assets/js/config.js)" aria-label="GitHub">
+          <!-- GitHub SVG -->
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 .5a12 12 0 0 0-3.8 23.4c.6.1.8-.2.8-.5v-1.9c-3.3.7-4-1.4-4-1.4-.6-1.4-1.4-1.8-1.4-1.8-1.1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1.1 1.8 2.8 1.3 3.5 1 .1-.8.4-1.3.7-1.6-2.7-.3-5.5-1.4-5.5-6.3 0-1.4.5-2.6 1.2-3.6-.1-.3-.5-1.6.1-3.4 0 0 1-.3 3.5 1.3a12 12 0 0 1 6.4 0c2.4-1.6 3.5-1.3 3.5-1.3.6 1.8.2 3.1.1 3.4.8 1 1.2 2.2 1.2 3.6 0 4.9-2.8 6-5.5 6.3.5.4.8 1.1.8 2.2v3.3c0 .3.2.6.8.5A12 12 0 0 0 12 .5z"></path></svg>
+        </a>
+        <a id="li" class="icon" href="#" target="_blank" rel="noopener" title="LinkedIn (editar em assets/js/config.js)" aria-label="LinkedIn">
+          <!-- LinkedIn SVG -->
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.45 20.45h-3.56v-5.5c0-1.31 0-3-1.83-3s-2.11 1.43-2.11 2.9v5.6H9.39V9h3.41v1.57h.05a3.74 3.74 0 0 1 3.37-1.85c3.61 0 4.27 2.38 4.27 5.47zM5.34 7.43a2.06 2.06 0 1 1 0-4.11 2.06 2.06 0 0 1 0 4.11zM7.12 20.45H3.56V9h3.56z"></path></svg>
+        </a>
+      </nav>
+      <p class="made-by">Feito por Thiago Torres</p>
+    </footer>
+
+    <script src="assets/js/config.js"></script>
+    <script src="assets/js/app.js"></script>
+  </body>
+</html>
