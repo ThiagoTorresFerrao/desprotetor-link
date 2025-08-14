@@ -1,3 +1,5 @@
+<img src="./images/screenshot.png">
+
 # Desprotetor de Link
 
 [Desprotetor de Link - Click here](https://thiagotorresferrao.github.io/desprotetor-link/)
