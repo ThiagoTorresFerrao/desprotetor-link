@@ -1,4 +1,4 @@
-<img src="./images/screenshot.jpg">
+<img src="assets/img/Screenshot.jpg">
 
 # Desprotetor de Link
 
